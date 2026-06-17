@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Predicción de Precio de Autos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background: #1f6feb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f5e9;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Predicción de Precio de Automóviles</h1>
+
+    <p>
+        Esta página utiliza un modelo de regresión entrenado con el dataset Car Price Prediction.
+        El objetivo es predecir el precio de un automóvil a partir de sus características.
+    </p>
+
+    <form method="POST">
+        <div class="grid">
+            <div>
+                <label>Symboling</label>
+                <input type="number" name="symboling" value="0" required>
+            </div>
+
+            <div>
+                <label>Wheelbase</label>
+                <input type="number" step="0.01" name="wheelbase" value="88.6" required>
+            </div>
+
+            <div>
+                <label>Car length</label>
+                <input type="number" step="0.01" name="carlength" value="168.8" required>
+            </div>
+
+            <div>
+                <label>Car width</label>
+                <input type="number" step="0.01" name="carwidth" value="64.1" required>
+            </div>
+
+            <div>
+                <label>Car height</label>
+                <input type="number" step="0.01" name="carheight" value="48.8" required>
+            </div>
+
+            <div>
+                <label>Curb weight</label>
+                <input type="number" name="curbweight" value="2548" required>
+            </div>
+
+            <div>
+                <label>Engine size</label>
+                <input type="number" name="enginesize" value="130" required>
+            </div>
+
+            <div>
+                <label>Horsepower</label>
+                <input type="number" name="horsepower" value="111" required>
+            </div>
+
+            <div>
+                <label>City MPG</label>
+                <input type="number" name="citympg" value="21" required>
+            </div>
+
+            <div>
+                <label>Highway MPG</label>
+                <input type="number" name="highwaympg" value="27" required>
+            </div>
+
+            <div>
+                <label>Bore ratio</label>
+                <input type="number" step="0.01" name="boreratio" value="3.47" required>
+            </div>
+
+            <div>
+                <label>Stroke</label>
+                <input type="number" step="0.01" name="stroke" value="2.68" required>
+            </div>
+
+            <div>
+                <label>Compression ratio</label>
+                <input type="number" step="0.01" name="compressionratio" value="9.0" required>
+            </div>
+
+            <div>
+                <label>Peak RPM</label>
+                <input type="number" name="peakrpm" value="5000" required>
+            </div>
+
+            <div>
+                <label>Fuel type</label>
+                <select name="fueltype">
+                    <option value="gas">Gas</option>
+                    <option value="diesel">Diesel</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Aspiration</label>
+                <select name="aspiration">
+                    <option value="std">Std</option>
+                    <option value="turbo">Turbo</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Door number</label>
+                <select name="doornumber">
+                    <option value="two">Two</option>
+                    <option value="four">Four</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Car body</label>
+                <select name="carbody">
+                    <option value="sedan">Sedan</option>
+                    <option value="hatchback">Hatchback</option>
+                    <option value="wagon">Wagon</option>
+                    <option value="hardtop">Hardtop</option>
+                    <option value="convertible">Convertible</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Drive wheel</label>
+                <select name="drivewheel">
+                    <option value="fwd">FWD</option>
+                    <option value="rwd">RWD</option>
+                    <option value="4wd">4WD</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Engine location</label>
+                <select name="enginelocation">
+                    <option value="front">Front</option>
+                    <option value="rear">Rear</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Engine type</label>
+                <select name="enginetype">
+                    <option value="ohc">OHC</option>
+                    <option value="ohcf">OHCF</option>
+                    <option value="ohcv">OHCV</option>
+                    <option value="dohc">DOHC</option>
+                    <option value="l">L</option>
+                    <option value="rotor">Rotor</option>
+                    <option value="dohcv">DOHCV</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Cylinder number</label>
+                <select name="cylindernumber">
+                    <option value="four">Four</option>
+                    <option value="six">Six</option>
+                    <option value="five">Five</option>
+                    <option value="eight">Eight</option>
+                    <option value="two">Two</option>
+                    <option value="three">Three</option>
+                    <option value="twelve">Twelve</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Fuel system</label>
+                <select name="fuelsystem">
+                    <option value="mpfi">MPFI</option>
+                    <option value="2bbl">2BBL</option>
+                    <option value="idi">IDI</option>
+                    <option value="1bbl">1BBL</option>
+                    <option value="spdi">SPDI</option>
+                    <option value="4bbl">4BBL</option>
+                    <option value="mfi">MFI</option>
+                    <option value="spfi">SPFI</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit">Predecir precio</button>
+    </form>
+
+    {% if prediccion %}
+        <div class="resultado">
+            Precio estimado: ${{ prediccion }}
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
