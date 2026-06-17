@@ -57,6 +57,74 @@
             text-align: center;
             font-size: 20px;
         }
+
+        .info-section {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding: 18px;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+}
+
+.info-section h2 {
+    margin-top: 0;
+    color: #111827;
+    font-size: 22px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.card strong {
+    display: block;
+    color: #374151;
+    font-size: 14px;
+}
+
+.card span {
+    display: block;
+    margin-top: 6px;
+    font-size: 16px;
+    color: #111827;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th, td {
+    border: 1px solid #e5e7eb;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background: #f1f5f9;
+}
+
+@media (max-width: 800px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
     </style>
 </head>
 <body>
@@ -68,6 +136,84 @@
         Esta página utiliza un modelo de regresión entrenado con el dataset Car Price Prediction.
         El objetivo es predecir el precio de un automóvil a partir de sus características.
     </p>
+
+    <section class="info-section">
+    <h2>Información del modelo</h2>
+
+    <div class="cards">
+        <div class="card">
+            <strong>Modelo utilizado</strong>
+            <span>{{ info_modelo.modelo }}</span>
+        </div>
+
+        <div class="card">
+            <strong>Variable objetivo</strong>
+            <span>price</span>
+        </div>
+
+        <div class="card">
+            <strong>MAE</strong>
+            <span>{{ info_modelo.mae }}</span>
+        </div>
+
+        <div class="card">
+            <strong>R²</strong>
+            <span>{{ info_modelo.r2 }}</span>
+        </div>
+    </div>
+
+    <p>
+        El modelo fue entrenado para estimar el precio de un automóvil usando sus características técnicas.
+        Antes del entrenamiento se aplicó selección de características tomando las variables con mayor correlación
+        con la variable objetivo <strong>price</strong>.
+    </p>
+</section>
+
+<section class="info-section">
+    <h2>Variables con mayor correlación</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Posición</th>
+                <th>Variable</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for variable, descripcion in ranking_variables %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ variable }}</td>
+                <td>{{ descripcion }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+<section class="info-section">
+    <h2>Descripción de campos del formulario</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Campo</th>
+                <th>Significado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for variable, descripcion in variables_formulario %}
+            <tr>
+                <td>{{ variable }}</td>
+                <td>{{ descripcion }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+<h2>Formulario de predicción</h2>
 
     <form method="POST">
         <div class="grid">
